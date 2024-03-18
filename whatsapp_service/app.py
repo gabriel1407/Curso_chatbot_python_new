@@ -11,16 +11,19 @@ def Saludar():
 @app.route('/whatsapp', methods=['GET'])
 def verifyToken():
     try:
-        access_token = "EAANIN5buPuIBO8qy3ZBm3RzI8E9YJ42DA25nOo1sPyVBYeJ9V7WQbKUL9WJwLIlB1TEGXKw65ku7IXz0AtAS64Yd3Y9Yp4UYr9JqpqCxzUp96TbzZCFN4wW2bSFZCMugSuS85hHVm29HIJuGfbThdQzWV3eifpFCz4GZBWm549ZAQggAXVhBnBRfIiktM6Tre"
+        access_token = "E23431A21A991BE82FF3D79D5F1F8"
         token = request.args.get('hub.verify_token')
         challengue = request.args.get('hub.challengue')
+        #mode = request.args.get('hub.mode')
 
         if token == access_token:
             return challengue
         else:
             return "Error", 400
-    except:
+    except Exception as e:
+        print ("Error", e)
         return "Error", 400
+
     
 
 @app.route('/whatsapp', methods=['POST'])
@@ -49,7 +52,7 @@ def Received_message():
         return "EVENT_RECEIVED"
 def WhatsappService(body):
     try:
-        token = "EAANIN5buPuIBO8qy3ZBm3RzI8E9YJ42DA25nOo1sPyVBYeJ9V7WQbKUL9WJwLIlB1TEGXKw65ku7IXz0AtAS64Yd3Y9Yp4UYr9JqpqCxzUp96TbzZCFN4wW2bSFZCMugSuS85hHVm29HIJuGfbThdQzWV3eifpFCz4GZBWm549ZAQggAXVhBnBRfIiktM6Tre"
+        token = "E23431A21A991BE82FF3D79D5F1F8"
         api_url = "https://graph.facebook.com/v18.0/245533201976802/messages"
         headers = {
             "Content-Type": "application/json",
