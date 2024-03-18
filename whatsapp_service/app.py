@@ -13,11 +13,10 @@ def verifyToken():
     try:
         access_token = "E23431A21A991BE82FF3D79D5F1F8"
         token = request.args.get('hub.verify_token')
-        challengue = request.args.get('hub.challengue')
-        #mode = request.args.get('hub.mode')
+        challenge = request.args.get('hub.challenge')  # Corrección aquí
 
         if token == access_token:
-            return challengue
+            return challenge
         else:
             return "Error", 400
     except Exception as e:
@@ -52,13 +51,15 @@ def Received_message():
         return "EVENT_RECEIVED"
 def WhatsappService(body):
     try:
-        token = "E23431A21A991BE82FF3D79D5F1F8"
+        token = "EAANIN5buPuIBO8qy3ZBm3RzI8E9YJ42DA25nOo1sPyVBYeJ9V7WQbKUL9WJwLIlB1TEGXKw65ku7IXz0AtAS64Yd3Y9Yp4UYr9JqpqCxzUp96TbzZCFN4wW2bSFZCMugSuS85hHVm29HIJuGfbThdQzWV3eifpFCz4GZBWm549ZAQggAXVhBnBRfIiktM6Tre"
         api_url = "https://graph.facebook.com/v18.0/245533201976802/messages"
         headers = {
             "Content-Type": "application/json",
             "Authorization": f"Bearer {token}"
         }
         response = requests.post(api_url, data=json.dumps(body), headers=headers)
+        print(response.status_code)
+        print(response.text)
         if response.status_code == 200:
             return True
         else:
@@ -72,9 +73,7 @@ def send_message(text, number):
     "recipient_type": "individual",
     "to": f"{number}",
     "type": "text",
-    "text": {
-        "body": f"Esta es la respuesta a la pregunta: {text}"
-    }
+    "text": text
     }
     
     return body 
